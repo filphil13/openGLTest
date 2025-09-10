@@ -1,1 +1,1 @@
-cd /home/filphil/openGl/build && make && ./openGLTutorial
+cd /home/filphil12/openGLTest/build && make && ./openGLTutorial

@@ -2,6 +2,8 @@
 #include <glm/glm.hpp>
 using namespace glm;
 
+float rotationX = 0.0f; // Current rotation around X-axis
+float rotationY = 0.0f; // Current rotation around Y-axis
 float rotationSpeedX = 0.0f; // Rotation speed around X-axis
 float rotationSpeedY = 0.0f; // Rotation speed around Y-axis
 
@@ -22,8 +24,9 @@ void AddTranslation(float deltaX, float deltaY, float deltaZ) {
 }
 
 void MoveForward(float distance) {
-    translationZ += distance;
+    position += front * distance;
 }
+
 
 void Camera() {
     glTranslatef(position.x, position.y, position.z);
@@ -31,5 +34,6 @@ void Camera() {
     glRotatef(front.y, 0.0f, 1.0f, 0.0f); // Yaw
     glRotatef(front.z, 0.0f, 0.0f, 1.0f); // Roll
     AddRotation(rotationSpeedX, rotationSpeedY); // Different speeds for X and Y create interesting motion
+    AddTranslation(translationSpeed.x, translationSpeed.y, translationSpeed.z);
 }
 
