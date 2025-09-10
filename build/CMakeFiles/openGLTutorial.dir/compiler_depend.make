@@ -318,7 +318,9 @@ CMakeFiles/openGLTutorial.dir/openGLTutorial.cpp.o: ../openGLTutorial.cpp \
   /usr/include/glm/detail/type_half.hpp \
   /usr/include/glm/detail/type_half.inl \
   /usr/include/glm/integer.hpp \
-  /usr/include/glm/detail/func_integer.inl
+  /usr/include/glm/detail/func_integer.inl \
+  ../Camera.cpp \
+  ../Cube.cpp
 
 
 /usr/include/glm/integer.hpp:
@@ -440,6 +442,8 @@ CMakeFiles/openGLTutorial.dir/openGLTutorial.cpp.o: ../openGLTutorial.cpp \
 /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h:
 
 /usr/include/c++/11/ext/atomicity.h:
+
+../Camera.cpp:
 
 /usr/include/c++/11/bits/stl_pair.h:
 
@@ -928,6 +932,8 @@ CMakeFiles/openGLTutorial.dir/openGLTutorial.cpp.o: ../openGLTutorial.cpp \
 /usr/include/glm/ext/vector_int4_sized.hpp:
 
 /usr/include/glm/ext/vector_uint4.hpp:
+
+../Cube.cpp:
 
 /usr/include/glm/mat2x2.hpp:
 

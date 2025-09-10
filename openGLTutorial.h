@@ -8,19 +8,16 @@
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 #include <glm/glm.hpp>
+#include "Camera.cpp"
+#include "Cube.cpp"
+//#include "Mouse.cpp"
+//#include "Keyboard.cpp"
+
 using namespace glm;
 using namespace std;
 
-struct Color {
-    float r, g, b;
-};
 
-struct Cube {
-    float size;
-    Color color;
-};
 
-extern Color polygonColor;
 
 extern unsigned int windowWidth;
 extern unsigned int windowHeight;
@@ -39,5 +36,6 @@ void mouseCallback(int button, int state, int x, int y);
 void keyboardCallback(unsigned char key, int x, int y);
 void drawCube(unsigned int x, unsigned int y, unsigned int z, unsigned int scale );
 void Camera();
+void initGLUT();
 
 #endif // OPENGLTUTORIAL_H

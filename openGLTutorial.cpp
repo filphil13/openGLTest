@@ -3,13 +3,10 @@
 
 
 // Define the polygon color variable
-Color polygonColor = {1.0 , 1.0 , 1.0 }; // Start with white color
 
 // Window and rotation variables
 unsigned int windowWidth = 800;
 unsigned int windowHeight = 600;
-float rotationX = 0.0f;
-float rotationY = 0.0f;
 
 // Menu variable
 int menu_id;
@@ -37,11 +34,8 @@ int main(int argc, char** argv){
     printf("Hello OpenGL\n");
 
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
-    glutInitWindowSize(windowWidth, windowHeight);
-    glutInitWindowPosition(0,0);
-    glutCreateWindow("OpenGL Tutorial");
-    
+    initGLUT();
+
     // Initialize GLEW after creating OpenGL context
     GLenum glewError = glewInit();
     if(glewError != GLEW_OK){
@@ -92,12 +86,14 @@ void display(){
     // Reset modelview matrix for this frame
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+
+    Camera();
     
     // Move the camera back to see the polygon
-    Camera();
+    glTranslatef(0.0f, 0.0f, -6.0f);
 
     // Set the polygon color using our color variable
-    drawCube(0,0,0,1);
+    drawCube(0,0,0,2);
 
 
     glutSwapBuffers(); // swap front and back buffers for double buffering
@@ -150,6 +146,31 @@ void keyboardCallback(unsigned char key, int x, int y){
         // Force a redraw
         glutPostRedisplay();
     }
+    if(key == 'w' || key == 'W'){
+        // Move the camera forward
+        AddTranslation(0.0f, 0.0f, 0.1f);
+    }
+    if(key == 's' || key == 'S'){
+        // Move the camera backward
+        AddTranslation(0.0f, 0.0f, -0.1f);
+    }
+    if(key == 'a' || key == 'A'){
+        // Move the camera left
+        AddTranslation(-0.1f, 0.0f, 0.0f);
+    }
+    if(key == 'd' || key == 'D'){
+        // Move the camera right
+        AddTranslation(0.1f, 0.0f, 0.0f);
+    }
+    if(key == 'r' || key == 'R'){
+        // Move the camera up
+        AddTranslation(0.0f, 0.1f, 0.0f);
+    }
+    if(key == 'f' || key == 'F'){
+        // Move the camera down
+        AddTranslation(0.0f, -0.1f, 0.0f);
+    }
+    
     // Example: Exit on 'q' key press
     if(key == 'q' || key == 'Q'){
         glutLeaveMainLoop();
@@ -157,69 +178,4 @@ void keyboardCallback(unsigned char key, int x, int y){
 }
 
 
-void Camera() {
 
-
-    glTranslatef(0.0f, 0.0f, -6.0f);
-    glRotatef(rotationX, 1.0, 0.0f, 0.0f); // Rotate around X-axis
-    glRotatef(rotationY, 0.0f, 1.0, 0.0f); // Rotate around Y-axis
-    rotationX += 1.0f; // Adjust speed as needed
-    rotationY += 1.5f; // Different speeds for X and Y create interesting motion
-}
-
-void drawCube(unsigned int x, unsigned int y, unsigned int z, unsigned int scale )
-{
-    // CUBE FACE FRONT
-    glColor3f(polygonColor.r, polygonColor.g, polygonColor.b);
-    glBegin(GL_QUADS);        
-    glVertex3f((-0.5 + x) * scale, (-0.5 + y) * scale, (0.5 + z) * scale);
-    glVertex3f((0.5 + x) * scale, (-0.5 + y) * scale, (0.5 + z) * scale);
-    glVertex3f((0.5 + x) * scale, (0.5 + y) * scale, (0.5 + z) * scale);
-    glVertex3f((-0.5 + x) * scale, (0.5 + y) * scale, (0.5 + z) * scale);
-    glEnd();
-    
-    // CUBE FACE BACK
-    glColor3f(polygonColor.r, polygonColor.g, polygonColor.b);
-    glBegin(GL_QUADS);        
-    glVertex3f((-0.5 + x) * scale, (-0.5 + y) * scale, (-0.5 + z) * scale);        
-    glVertex3f((0.5 + x) * scale, (-0.5 + y) * scale, (-0.5 + z) * scale);        
-    glVertex3f((0.5 + x) * scale, (0.5 + y) * scale, (-0.5 + z) * scale);        
-    glVertex3f((-0.5 + x) * scale, (0.5 + y) * scale, (-0.5 + z) * scale);    
-    glEnd();
-
-    // CUBE FACE TOP
-    glColor3f(polygonColor.r, polygonColor.g, polygonColor.b);
-    glBegin(GL_QUADS);        
-    glVertex3f((-0.5 + x) * scale, (0.5 + y) * scale, (0.5 + z) * scale);        
-    glVertex3f((0.5 + x) * scale, (0.5 + y) * scale, (0.5 + z) * scale);        
-    glVertex3f((0.5 + x) * scale, (0.5 + y) * scale, (-0.5 + z) * scale);        
-    glVertex3f((-0.5 + x) * scale, (0.5 + y) * scale, (-0.5 + z) * scale);    
-    glEnd();
-
-    // CUBE FACE BOTTOM
-    glColor3f(polygonColor.r, polygonColor.g, polygonColor.b);
-    glBegin(GL_QUADS);        
-    glVertex3f((-0.5 + x) * scale, (-0.5 + y) * scale, (0.5 + z) * scale);        
-    glVertex3f((0.5 + x) * scale, (-0.5 + y) * scale, (0.5 + z) * scale);        
-    glVertex3f((0.5 + x) * scale, (-0.5 + y) * scale, (-0.5 + z) * scale);        
-    glVertex3f((-0.5 + x) * scale, (-0.5 + y) * scale, (-0.5 + z) * scale);    
-    glEnd();
-
-    // CUBE FACE LEFT
-    glColor3f(polygonColor.r, polygonColor.g, polygonColor.b);
-    glBegin(GL_QUADS);        
-    glVertex3f((-0.5 + x) * scale, (-0.5 + y) * scale, (0.5 + z) * scale);        
-    glVertex3f((-0.5 + x) * scale, (-0.5 + y) * scale, (-0.5 + z) * scale);        
-    glVertex3f((-0.5 + x) * scale, (0.5 + y) * scale, (-0.5 + z) * scale);        
-    glVertex3f((-0.5 + x) * scale, (0.5 + y) * scale, (0.5 + z) * scale);    
-    glEnd();
-
-    // CUBE FACE RIGHT
-    glColor3f(polygonColor.r, polygonColor.g, polygonColor.b);
-    glBegin(GL_QUADS);        
-    glVertex3f( (0.5 + x) * scale, (-0.5 + y) * scale, (0.5 + z) * scale);        
-    glVertex3f( (0.5 + x) * scale, (-0.5 + y) * scale, (-0.5 + z) * scale);        
-    glVertex3f( (0.5 + x) * scale, (0.5 + y) * scale, (-0.5 + z) * scale);        
-    glVertex3f( (0.5 + x) * scale, (0.5 + y) * scale, (0.5 + z) * scale);    
-    glEnd();
-}

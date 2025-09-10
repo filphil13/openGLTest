@@ -262,4 +262,5 @@ CMakeFiles/openGLTutorial.dir/openGLTutorial.cpp.o: \
  /usr/include/glm/packing.hpp /usr/include/glm/detail/func_packing.inl \
  /usr/include/glm/detail/type_half.hpp \
  /usr/include/glm/detail/type_half.inl /usr/include/glm/integer.hpp \
- /usr/include/glm/detail/func_integer.inl
+ /usr/include/glm/detail/func_integer.inl /home/filphil/openGl/Camera.cpp \
+ /home/filphil/openGl/Cube.cpp
