@@ -9,6 +9,15 @@
 unsigned int windowWidth = 800;
 unsigned int windowHeight = 600;
 
+GLfloat mat_ambient[] = { 0.4, 0.2, 0.0, 1.0 };
+GLfloat mat_specular[] = { 0.4, 0.4, 0.0, 1.0 };
+GLfloat mat_diffuse[] = { 0.9, 0.5, 0.0, 1.0 };
+GLfloat mat_shininess[] = { 0.0 };
+GLfloat light_position0[] = { -5.0,5.0,5.0,1.0 };
+GLfloat light_position1[] = { 5.0,5.0,5.0,1.0 };
+GLfloat light_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
+GLfloat light_specular[] = { 0.0, 0.0, 0.0, 1.0 };
+GLfloat model_ambient[] = { 0.0, 0.0, 0.0, 1.0 };
 // Create a global camera instance
 Camera camera;
 
@@ -29,6 +38,7 @@ int main(int argc, char** argv){
     glutDisplayFunc(display);
     glutMouseFunc(mouseCallback);
     glutKeyboardFunc(keyboardCallback);
+    glutSpecialFunc(specialKeyCallback);
     
     
     initGL(windowWidth, windowHeight);
@@ -43,7 +53,15 @@ void initGL(unsigned int w, unsigned int h){
     glEnable(GL_DEPTH_TEST);
     gluPerspective(60.0,(double)w/(double)h,0.1,100.0);
     glMatrixMode(GL_MODELVIEW);
+    
     glLoadIdentity();
+
+        // Setup the material and lights used for our teapot
+    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, model_ambient);
+
+    glShadeModel(GL_SMOOTH);
+
+    glEnable(GL_DEPTH_TEST);
     
     // Set clear color to black
     glClearColor(0.0f, 0.0f, 0.0f, 1.0 );
@@ -65,27 +83,18 @@ void display(){
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    camera.CameraLoop;
+    camera.CameraLoop();
     
-    // Move the camera back to see the polygon
-    glTranslatef(0.0f, 0.0f, -6.0f);
+    gluLookAt(0.0, 0.0, 10.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
-    // Set the polygon color using our color variable
+
     drawCube(0,0,0,2);
 
-    glBegin(GL_QUADS);      
-    glColor3f(1.0f, 1.0f, 1.0f);
-    glVertex3f(20.0f, 0.0f, 20.0f);
-    glVertex3f(-20.0f, 0.0f, -20.0f);
-    glVertex3f(20.0f, 0.0f, -20.0f);
-    glVertex3f(-20.0f, 0.0f, 20.0f);
-    glEnd();
 
 
     glutSwapBuffers(); // swap front and back buffers for double buffering
-    glutPostRedisplay(); // Request a redraw for continuous animation
+    glutPostRedisplay(); // request a redraw for continuous animation
 }
-
 
 void mouseCallback(int button, int state, int x, int y){
     printf("Mouse button %d %s at position (%d, %d)\n", 
@@ -118,10 +127,32 @@ void keyboardCallback(unsigned char key, int x, int y){
     if(key == ' '){
         camera.AddTranslation(0.0f, -0.1f, 0.0f);
     }
-    
+    if(key == 'c' || key == 'C'){
+        camera.AddTranslation(0.0f, 0.1f, 0.0f);
+    }
+
     // Example: Exit on 'q' key press
     if(key == 'q' || key == 'Q'){
         glutLeaveMainLoop();
+    }
+}
+
+void specialKeyCallback(int key, int x, int y) {
+    printf("Key %c pressed at position (%d, %d)\n", key, x, y);
+
+    switch (key) {
+        case GLUT_KEY_UP:
+            camera.AddRotation(-1.0f, 0.0f);
+            break;
+        case GLUT_KEY_DOWN:
+            camera.AddRotation(1.0f, 0.0f);
+            break;
+        case GLUT_KEY_LEFT:
+            camera.AddRotation(0.0f, -1.0f);
+            break;
+        case GLUT_KEY_RIGHT:
+            camera.AddRotation(0.0f, 1.0f);
+            break;
     }
 }
 

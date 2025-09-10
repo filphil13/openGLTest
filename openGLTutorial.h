@@ -30,6 +30,7 @@ void display();
 void initGL(unsigned int w=windowWidth, unsigned int h=windowHeight);
 void mouseCallback(int button, int state, int x, int y);
 void keyboardCallback(unsigned char key, int x, int y);
+void specialKeyCallback(int key, int x, int y);
 void initGLUT();
 
 #endif // OPENGLTUTORIAL_H
