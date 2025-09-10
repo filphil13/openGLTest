@@ -13,6 +13,7 @@ public:
     glm::vec3 translationSpeed;
     glm::vec3 front;
     glm::vec3 position;
+    glm::vec3 up;
 
     // Constructor
     Camera();
@@ -21,6 +22,12 @@ public:
     void AddRotation(float deltaX, float deltaY);
     void AddTranslation(float deltaX, float deltaY, float deltaZ);
     void MoveForward(float distance);
+    void MoveBackward(float distance);
+    void MoveLeft(float distance);
+    void MoveRight(float distance);
+    void MoveUp(float distance);
+    void MoveDown(float distance);
+    
     void CameraLoop();
 };
 

@@ -89,6 +89,8 @@ void display(){
 
 
     drawCube(0,0,0,2);
+    drawCube(2,0,0,1);
+    drawCube(-2,0,0,1);
 
 
 
@@ -110,25 +112,25 @@ void keyboardCallback(unsigned char key, int x, int y){
     
     if(key == 'w' || key == 'W'){
         // Move the camera forward
-        camera.AddTranslation(0.0f, 0.0f, 0.1f);
+        camera.MoveForward(0.5f);
     }
     if(key == 's' || key == 'S'){
         // Move the camera backward
-        camera.AddTranslation(0.0f, 0.0f, -0.1f);
+        camera.MoveBackward(0.5f);
     }
     if(key == 'a' || key == 'A'){
         // Move the camera left
-        camera.AddTranslation(0.1f, 0.0f, 0.0f);
+        camera.MoveLeft(0.5f);
     }
     if(key == 'd' || key == 'D'){
         // Move the camera right
-        camera.AddTranslation(-0.1f, 0.0f, 0.0f);
+        camera.MoveRight(0.5f);
     }
     if(key == ' '){
-        camera.AddTranslation(0.0f, -0.1f, 0.0f);
+        camera.MoveUp(0.5f);
     }
     if(key == 'c' || key == 'C'){
-        camera.AddTranslation(0.0f, 0.1f, 0.0f);
+        camera.MoveDown(0.5f);
     }
 
     // Example: Exit on 'q' key press
@@ -142,16 +144,16 @@ void specialKeyCallback(int key, int x, int y) {
 
     switch (key) {
         case GLUT_KEY_UP:
-            camera.AddRotation(-1.0f, 0.0f);
+            camera.AddRotation(5.0f, 0.0f);
             break;
         case GLUT_KEY_DOWN:
-            camera.AddRotation(1.0f, 0.0f);
+            camera.AddRotation(-5.0f, 0.0f);
             break;
         case GLUT_KEY_LEFT:
-            camera.AddRotation(0.0f, -1.0f);
+            camera.AddRotation(0.0f, -5.0f);
             break;
         case GLUT_KEY_RIGHT:
-            camera.AddRotation(0.0f, 1.0f);
+            camera.AddRotation(0.0f, 5.0f);
             break;
     }
 }
