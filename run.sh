@@ -1,0 +1,1 @@
+cd /home/filphil/openGl/build && make && ./openGLTutorial
