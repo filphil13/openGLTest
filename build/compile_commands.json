@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/home/filphil12/openGLTest/build",
+  "command": "/usr/bin/g++   -g -std=gnu++11 -o CMakeFiles/openGLTutorial.dir/openGLTutorial.cpp.o -c /home/filphil12/openGLTest/openGLTutorial.cpp",
+  "file": "/home/filphil12/openGLTest/openGLTutorial.cpp",
+  "output": "CMakeFiles/openGLTutorial.dir/openGLTutorial.cpp.o"
+}
+]

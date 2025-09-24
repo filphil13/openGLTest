@@ -8,10 +8,10 @@
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 #include <glm/glm.hpp>
-#include "Camera.cpp"
-#include "Cube.cpp"
-//#include "Mouse.cpp"
-//#include "Keyboard.cpp"
+#include "Cube.h"
+#include "Camera.h"
+#include "Keyboard.h"
+//#include "Mouse.h"
 
 using namespace glm;
 using namespace std;

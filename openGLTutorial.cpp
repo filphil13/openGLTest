@@ -1,7 +1,4 @@
 #include "openGLTutorial.h"
-#include "Camera.h"
-#include <GL/glew.h>
-#include <GL/freeglut.h>
 
 // Define the polygon color variable
 
@@ -10,7 +7,8 @@ unsigned int windowWidth = 800;
 unsigned int windowHeight = 600;
 
 // Create a global camera instance
-Camera camera;
+Camera* camera = new Camera();
+Keyboard* keyboard = new Keyboard();
 
 
 int main(int argc, char** argv){
@@ -65,7 +63,7 @@ void display(){
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    camera.CameraLoop;
+    camera->CameraLoop();
     
     // Move the camera back to see the polygon
     glTranslatef(0.0f, 0.0f, -6.0f);
@@ -87,6 +85,10 @@ void display(){
 }
 
 
+void keyboardCallback(unsigned char key, int x, int y) {
+    keyboard->keyboardCallback(camera, key, x, y);
+}
+
 void mouseCallback(int button, int state, int x, int y){
     printf("Mouse button %d %s at position (%d, %d)\n", 
            button, 
@@ -96,34 +98,6 @@ void mouseCallback(int button, int state, int x, int y){
    
 }
 
-void keyboardCallback(unsigned char key, int x, int y){
-    printf("Key %c pressed at position (%d, %d)\n", key, x, y);
-    
-    if(key == 'w' || key == 'W'){
-        // Move the camera forward
-        camera.AddTranslation(0.0f, 0.0f, 0.1f);
-    }
-    if(key == 's' || key == 'S'){
-        // Move the camera backward
-        camera.AddTranslation(0.0f, 0.0f, -0.1f);
-    }
-    if(key == 'a' || key == 'A'){
-        // Move the camera left
-        camera.AddTranslation(0.1f, 0.0f, 0.0f);
-    }
-    if(key == 'd' || key == 'D'){
-        // Move the camera right
-        camera.AddTranslation(-0.1f, 0.0f, 0.0f);
-    }
-    if(key == ' '){
-        camera.AddTranslation(0.0f, -0.1f, 0.0f);
-    }
-    
-    // Example: Exit on 'q' key press
-    if(key == 'q' || key == 'Q'){
-        glutLeaveMainLoop();
-    }
-}
 
 
 
