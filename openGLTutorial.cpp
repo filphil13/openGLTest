@@ -9,6 +9,8 @@ unsigned int windowHeight = 600;
 // Create a global camera instance
 Camera* camera = new Camera();
 Keyboard* keyboard = new Keyboard();
+//Mouse* mouse = new Mouse();
+
 
 
 int main(int argc, char** argv){
@@ -25,8 +27,9 @@ int main(int argc, char** argv){
     }
 
     glutDisplayFunc(display);
-    glutMouseFunc(mouseCallback);
+    //glutMouseFunc(mouseCallback);
     glutKeyboardFunc(keyboardCallback);
+    
     
     
     initGL(windowWidth, windowHeight);
@@ -57,7 +60,7 @@ void initGLUT(){
 
 void display(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // reset background
-
+    glutWarpPointer(windowWidth / 2, windowHeight / 2);
     
     // Reset modelview matrix for this frame
     glMatrixMode(GL_MODELVIEW);
@@ -88,15 +91,11 @@ void display(){
 void keyboardCallback(unsigned char key, int x, int y) {
     keyboard->keyboardCallback(camera, key, x, y);
 }
-
+/*
 void mouseCallback(int button, int state, int x, int y){
-    printf("Mouse button %d %s at position (%d, %d)\n", 
-           button, 
-           (state == GLUT_DOWN) ? "pressed" : "released", 
-           x, y);
-    
-   
+    mouse->mouseCallback(camera, button, state, x, y);
 }
+*/
 
 
 
